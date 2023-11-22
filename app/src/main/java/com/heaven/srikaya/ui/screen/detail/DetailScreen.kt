@@ -184,7 +184,7 @@ fun DetailContentPreview() {
             1,
             onBackClick = {},
             onAddToCart = {},
-            productDesc = "Ini cincin bagus"
+            productDesc = "Ini cincin bagus banget, belum lagi harganya sangat terjangkau. Ayo check out sekarang. (sample sentence)"
         )
     }
 }

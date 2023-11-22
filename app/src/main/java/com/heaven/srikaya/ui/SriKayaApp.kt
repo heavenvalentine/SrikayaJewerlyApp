@@ -1,5 +1,7 @@
 package com.heaven.srikaya.ui
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
@@ -15,6 +17,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -27,11 +30,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.heaven.srikaya.R
 import com.heaven.srikaya.ui.navigation.NavigationItem
 import com.heaven.srikaya.ui.navigation.Screen
+import com.heaven.srikaya.ui.screen.cart.CartScreen
 import com.heaven.srikaya.ui.screen.detail.DetailScreen
 import com.heaven.srikaya.ui.screen.home.HomeScreen
 import com.heaven.srikaya.ui.screen.profile.ProfileScreen
@@ -64,11 +69,11 @@ fun SriKayaApp(
             }
             composable(Screen.Cart.route) {
                 val context = LocalContext.current
-//                CartScreen(
-//                    onOrderButtonClicked = { message ->
-//                        shareOrder(context, message)
-//                    }
-//                )
+                CartScreen(
+                    onOrderButtonClicked = { message ->
+                        shareOrder(context, message)
+                    }
+                )
             }
             composable(Screen.Profile.route) {
                 ProfileScreen()
@@ -105,20 +110,20 @@ fun SriKayaApp(
 
 }
 
-//private fun shareOrder(context: Context, summary: String) {
-//    val intent = Intent(Intent.ACTION_SEND).apply {
-//        type = "text/plain"
-//        putExtra(Intent.EXTRA_SUBJECT, context.getString(string.dicoding_reward))
-//        putExtra(Intent.EXTRA_TEXT, summary)
-//    }
-//
-//    context.startActivity(
-//        Intent.createChooser(
-//            intent,
-//            context.getString(string.collapsed)
-//        )
-//    )
-//}
+private fun shareOrder(context: Context, summary: String) {
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.dicoding_product))
+        putExtra(Intent.EXTRA_TEXT, summary)
+    }
+
+    context.startActivity(
+        Intent.createChooser(
+            intent,
+            context.getString(R.string.collapsed)
+        )
+    )
+}
 
 @Composable
 fun Banner(
@@ -143,6 +148,8 @@ private fun BottomBar(
     NavigationBar(
         modifier = modifier,
     ) {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
         val navigationItems = listOf(
             NavigationItem(
                 title = stringResource(R.string.menu_home),
@@ -169,8 +176,15 @@ private fun BottomBar(
                     )
                 },
                 label = { Text(item.title) },
-                selected = false,
+                selected = currentRoute == item.screen.route,
                 onClick = {
+                    navController.navigate(item.screen.route) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        restoreState = true
+                        launchSingleTop = true
+                    }
                 }
             )
         }
