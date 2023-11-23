@@ -2,9 +2,6 @@ package com.heaven.srikaya.ui
 
 import android.content.Context
 import android.content.Intent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -19,12 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -102,12 +96,6 @@ fun SriKayaApp(
             }
         }
     }
-//
-//    Column {
-//        Banner()
-//    }
-
-
 }
 
 private fun shareOrder(context: Context, summary: String) {
@@ -123,21 +111,6 @@ private fun shareOrder(context: Context, summary: String) {
             context.getString(R.string.collapsed)
         )
     )
-}
-
-@Composable
-fun Banner(
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController(),
-) {
-    Box(modifier = modifier) {
-        Image(
-            painter = painterResource(R.drawable.banner),
-            contentDescription = "Banner Image",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.height(160.dp)
-        )
-    }
 }
 
 @Composable

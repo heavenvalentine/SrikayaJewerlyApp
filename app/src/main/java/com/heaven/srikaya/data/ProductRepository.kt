@@ -50,6 +50,15 @@ class ProductRepository {
             }
     }
 
+    fun searchProduct(query: String): Flow<List<OrderProduct>> {
+        return getAllProducts()
+            .map { result ->
+                result.filter {
+                    it.product.title.contains(query, ignoreCase = true)
+                }
+            }
+    }
+
     companion object {
         @Volatile
         private var instance: ProductRepository? = null

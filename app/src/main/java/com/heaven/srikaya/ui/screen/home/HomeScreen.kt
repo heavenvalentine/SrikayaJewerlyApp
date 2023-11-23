@@ -1,21 +1,36 @@
 package com.heaven.srikaya.ui.screen.home
 
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.heaven.srikaya.R
 import com.heaven.srikaya.di.Injection
 import com.heaven.srikaya.model.OrderProduct
 import com.heaven.srikaya.ui.ViewModelFactory
 import com.heaven.srikaya.ui.alert.ProductState
 import com.heaven.srikaya.ui.components.ProductItem
+import com.heaven.srikaya.ui.searchbar.Search
 
 @Composable
 fun HomeScreen(
@@ -25,45 +40,85 @@ fun HomeScreen(
     ),
     navigateToDetail: (Long) -> Unit,
 ) {
+    val searchState by viewModel.searchState
+
+
     viewModel.productState.collectAsState(initial = ProductState.Loading).value.let { uiState ->
-        when (uiState) {
-            is ProductState.Loading -> {
-                viewModel.getAllProducts()
+
+        Column(modifier = modifier) {
+
+            when (uiState) {
+                is ProductState.Loading -> {
+                    viewModel.getAllProducts()
+                }
+
+                is ProductState.Success -> {
+                    HomeContent(
+                        orderProduct = uiState.data,
+                        modifier = modifier,
+                        navigateToDetail = navigateToDetail,
+                        query = searchState.query,
+                        onQueryChange = viewModel::onQueryChange
+                    )
+                }
+
+                is ProductState.Error -> {}
             }
-            is ProductState.Success -> {
-                HomeContent(
-                    orderProduct = uiState.data,
-                    modifier = modifier,
-                    navigateToDetail = navigateToDetail,
-                )
-            }
-            is ProductState.Error -> {}
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeContent(
     orderProduct: List<OrderProduct>,
     modifier: Modifier = Modifier,
     navigateToDetail: (Long) -> Unit,
+    query: String,
+    onQueryChange: (String) -> Unit,
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(160.dp),
-        contentPadding = PaddingValues(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+    Box(
         modifier = modifier
-    ) {
-        items(orderProduct) { data ->
-            ProductItem(
-                image = data.product.image,
-                title = data.product.title,
-                requiredPoint = data.product.requiredPrice,
-                modifier = Modifier.clickable {
-                    navigateToDetail(data.product.id)
-                }
+            .height(90.dp)
+            .background(Color.Transparent)
+    ){
+        Search(
+            query = query,
+            onQueryChange = onQueryChange
+        )
+    }
+
+    if (orderProduct.isEmpty()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = stringResource(id = R.string.no_items_avalable),
+                modifier = Modifier.padding(16.dp)
             )
+        }
+    } else {
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(160.dp),
+            contentPadding = PaddingValues(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = modifier
+        ) {
+            items(orderProduct, key = {it.product.id}) { data ->
+                ProductItem(
+                    image = data.product.image,
+                    title = data.product.title,
+                    requiredPoint = data.product.requiredPrice,
+                    modifier = Modifier
+                        .clickable {
+                        navigateToDetail(data.product.id) }
+                        .animateItemPlacement(tween(durationMillis = 300))
+                )
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sri Kaya</string>
+    <string name="app_name">Srikaya</string>
     <string name="menu_home">Home</string>
     <string name="menu_cart">Cart</string>
     <string name="menu_profile">Profile</string>
@@ -9,9 +9,11 @@
     <string name="plus_symbol">＋</string>
     <string name="add_to_cart">Add to Cart : $%d </string>
     <string name="total_order">Total: $%d</string>
-    <string name="back">Back</string>
+    <string name="back">Back</string>ca
     <string name="dicoding_product">Dicoding Product</string>
-    <string name="share_message">Hey, check out my cart with total $%2$d. Found it on SriKaya! </string>
+    <string name="share_message">Hey, check out my cart with total $%2$d. Found it on Srikaya! </string>
     <string name="collapsed">Thank You.</string>
     <string name="no_items_in_cart">No Items In Cart\n</string>
+    <string name="placeholder_search">Find the jewels…</string>
+    <string name="no_items_avalable">No Items Available</string>
 </resources>

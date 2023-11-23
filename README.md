@@ -12,14 +12,14 @@
 [x] Terdapat informasi tambahan yang tidak sama dengan list
 
 3. Halaman About
-[] Menampilkan foto diri, nama, dan email yang terdaftar di Dicoding.
+[x] Menampilkan foto diri, nama, dan email yang terdaftar di Dicoding.
 [x] Dalam mengakses halaman about, pastikan terdapat tombol yang bisa digunakan untuk mengakses halamannya. Untuk cara mengaksesnya, Anda bisa mengimplementasikan:
     [x] Dengan menambahkan elemen View khusus (bisa option menu, tombol, atau tab) yang mengandung contentDescription “about_page”.
 
 4. Fitur Pencarian
-[] Aplikasi memiliki fitur pencarian berdasarkan kata kunci yang dimasukkan, dengan ketentuan
-   [] Jika kolom pencarian tidak kosong, maka aplikasi hanya menampilkan data yang judulnya mengandung kata kunci yang dimasukkan.
-   [] Jika kolom pencariannya kosong, maka aplikasi menampilkan seluruh data.
+[x] Aplikasi memiliki fitur pencarian berdasarkan kata kunci yang dimasukkan, dengan ketentuan
+   [x] Jika kolom pencarian tidak kosong, maka aplikasi hanya menampilkan data yang judulnya mengandung kata kunci yang dimasukkan.
+   [x] Jika kolom pencariannya kosong, maka aplikasi menampilkan seluruh data.
    Memanfaatkan ViewModel dalam membangun fitur pencarian.
 
 5. Fitur Menambah & Menghapus Data
@@ -28,6 +28,6 @@
     [] Menambah & menghapus data favorit.
     [] Menambah & menghapus data keranjang. 
     []Skenario sejenisnya.
-[] Teknik penyimpanan cukup menggunakan fake List. Jika ingin menggunakan database asli atau API pun tidak masalah.
-[] Jika data kosong, menampilkan informasi bahwa data kosong.
+[x] Teknik penyimpanan cukup menggunakan fake List. Jika ingin menggunakan database asli atau API pun tidak masalah.
+[x] Jika data kosong, menampilkan informasi bahwa data kosong.
 
