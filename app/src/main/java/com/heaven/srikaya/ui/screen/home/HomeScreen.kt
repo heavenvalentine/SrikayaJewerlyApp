@@ -1,5 +1,6 @@
 package com.heaven.srikaya.ui.screen.home
 
+import android.widget.Toast
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -21,6 +22,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -62,7 +65,10 @@ fun HomeScreen(
                     )
                 }
 
-                is ProductState.Error -> {}
+                is ProductState.Error -> {
+                    Toast.makeText(LocalContext.current,
+                        stringResource(R.string.error_message), Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -90,14 +96,14 @@ fun HomeContent(
 
     if (orderProduct.isEmpty()) {
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(16.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = stringResource(id = R.string.no_items_avalable),
-                modifier = Modifier.padding(16.dp)
+                modifier = modifier.padding(16.dp)
             )
         }
     } else {
@@ -106,14 +112,14 @@ fun HomeContent(
             contentPadding = PaddingValues(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = modifier
+            modifier = modifier.testTag("ProductList")
         ) {
             items(orderProduct, key = {it.product.id}) { data ->
                 ProductItem(
                     image = data.product.image,
                     title = data.product.title,
-                    requiredPoint = data.product.requiredPrice,
-                    modifier = Modifier
+                    requiredPrice = data.product.requiredPrice,
+                    modifier = modifier
                         .clickable {
                         navigateToDetail(data.product.id) }
                         .animateItemPlacement(tween(durationMillis = 300))

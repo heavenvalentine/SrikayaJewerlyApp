@@ -23,11 +23,9 @@
    Memanfaatkan ViewModel dalam membangun fitur pencarian.
 
 5. Fitur Menambah & Menghapus Data
-[] Aplikasi memiliki fitur untuk menambah dan menghapus data. Berikut beberapa skenario yang bisa diimplementasikan.. 
-    [] Menambah & menghapus data utama.
-    [] Menambah & menghapus data favorit.
-    [] Menambah & menghapus data keranjang. 
-    []Skenario sejenisnya.
+[x] Aplikasi memiliki fitur untuk menambah dan menghapus data. Berikut beberapa skenario yang bisa diimplementasikan.. 
+    [x] Menambah & menghapus data keranjang. 
 [x] Teknik penyimpanan cukup menggunakan fake List. Jika ingin menggunakan database asli atau API pun tidak masalah.
 [x] Jika data kosong, menampilkan informasi bahwa data kosong.
 
+6. [x] Membuat end-to-end testing untuk memeriksa fungsional seluruh halaman, baik positif case maupun negative case.

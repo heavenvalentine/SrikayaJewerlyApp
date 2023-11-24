@@ -1,5 +1,6 @@
 package com.heaven.srikaya.ui.screen.cart
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -32,12 +34,6 @@ fun CartScreen(
     ),
     onOrderButtonClicked: (String) -> Unit,
 ) {
-//    Box(
-//        modifier = Modifier.fillMaxSize(),
-//        contentAlignment = Alignment.Center,
-//    ) {
-//        Text(stringResource(R.string.menu_cart))
-//    }
     viewModel.productState.collectAsState(initial = ProductState.Loading).value.let { uiState ->
         when (uiState) {
             is ProductState.Loading -> {
@@ -52,7 +48,10 @@ fun CartScreen(
                     onOrderButtonClicked = onOrderButtonClicked
                 )
             }
-            is ProductState.Error -> {}
+            is ProductState.Error -> {
+                Toast.makeText(LocalContext.current,
+                    stringResource(R.string.error_message), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
@@ -67,14 +66,14 @@ fun CartContent(
     val shareMessage = stringResource(
         R.string.share_message,
         state.orderProduct.count(),
-        state.totalRequiredPoint
+        state.totalRequiredPrice
     )
     Column(
         modifier = modifier.fillMaxSize()
     ) {
         if (state.orderProduct.isEmpty()) {
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
@@ -86,7 +85,7 @@ fun CartContent(
                 title = {
                     Text(
                         text = stringResource(R.string.menu_cart),
-                        modifier = Modifier
+                        modifier = modifier
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
                         fontWeight = FontWeight.Bold,
@@ -99,14 +98,14 @@ fun CartContent(
             LazyColumn(
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.weight(weight = 1f)
+                modifier = modifier.weight(weight = 1f)
             ) {
                 items(state.orderProduct, key = { it.product.id }) { item ->
                     CartItem(
                         productsId = item.product.id,
                         image = item.product.image,
                         title = item.product.title,
-                        totalPoint = item.product.requiredPrice * item.count,
+                        totalPrice = item.product.requiredPrice * item.count,
                         count = item.count,
                         onProductCountChanged = onProductCountChanged,
                     )
@@ -115,12 +114,12 @@ fun CartContent(
             }
 
             OrderButton(
-                text = stringResource(R.string.total_order, state.totalRequiredPoint),
+                text = stringResource(R.string.total_order, state.totalRequiredPrice),
                 enabled = state.orderProduct.isNotEmpty(),
                 onClick = {
                     onOrderButtonClicked(shareMessage)
                 },
-                modifier = Modifier.padding(16.dp)
+                modifier = modifier.padding(16.dp)
             )
         }
     }

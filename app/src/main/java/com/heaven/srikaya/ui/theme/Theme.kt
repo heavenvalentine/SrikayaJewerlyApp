@@ -16,39 +16,28 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Navy200,
-    secondary = Turquoise500,
-    tertiary = Navy700,
-    secondaryContainer = Navy200,
-    onSecondaryContainer = Navy500,
-    onSurface = Navy200,
-    onSurfaceVariant = Navy200,
+    primary = Brown1,
+    secondary = Brown4,
+    tertiary = Brown3,
+    secondaryContainer = Brown1,
+    onSecondaryContainer = Brown2,
+    onSurface = Brown1,
+    onSurfaceVariant = Brown1,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Navy500,
-    secondary = Turquoise500,
-    tertiary = Navy700,
-    secondaryContainer = Navy200,
-    onSecondaryContainer = Navy700,
-    onSurface = Navy700,
-    onSurfaceVariant = Navy500,
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = Brown2,
+    secondary = Brown4,
+    tertiary = Brown3,
+    secondaryContainer = Brown1,
+    onSecondaryContainer = Brown3,
+    onSurface = Brown3,
+    onSurfaceVariant = Brown2,
 )
 
 @Composable
 fun SriKayaTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {

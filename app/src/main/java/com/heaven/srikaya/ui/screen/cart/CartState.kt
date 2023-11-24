@@ -4,5 +4,5 @@ import com.heaven.srikaya.model.OrderProduct
 
 data class CartState(
     val orderProduct: List<OrderProduct>,
-    val totalRequiredPoint: Int
+    val totalRequiredPrice: Int
 )

@@ -1,5 +1,6 @@
 package com.heaven.srikaya.ui.screen.detail
 
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -76,7 +78,10 @@ fun DetailScreen(
                     },
                 )
             }
-            is ProductState.Error -> {}
+            is ProductState.Error -> {
+                Toast.makeText(LocalContext.current,
+                    stringResource(R.string.error_message), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
@@ -85,7 +90,7 @@ fun DetailScreen(
 fun DetailContent(
     @DrawableRes image: Int,
     title: String,
-    basePoint: Int,
+    basePrice: Int,
     count: Int,
     productDesc: String,
     onBackClick: () -> Unit,
@@ -93,12 +98,12 @@ fun DetailContent(
     modifier: Modifier = Modifier,
 ) {
 
-    var totalPoint by rememberSaveable { mutableIntStateOf(0) }
+    var totalPrice by rememberSaveable { mutableIntStateOf(0) }
     var orderCount by rememberSaveable { mutableIntStateOf(count) }
 
     Column(modifier = modifier) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .verticalScroll(rememberScrollState())
                 .weight(1f)
         ) {
@@ -115,14 +120,14 @@ fun DetailContent(
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = stringResource(R.string.back),
-                    modifier = Modifier
+                    modifier = modifier
                         .padding(16.dp)
                         .clickable { onBackClick() }
                 )
             }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(16.dp)
+                modifier = modifier.padding(16.dp)
             ) {
                 Text(
                     text = title,
@@ -132,7 +137,7 @@ fun DetailContent(
                     ),
                 )
                 Text(
-                    text = stringResource(R.string.required_point, basePoint),
+                    text = stringResource(R.string.required_price, basePrice),
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.ExtraBold
                     ),
@@ -145,10 +150,7 @@ fun DetailContent(
                 )
             }
         }
-        Spacer(modifier = Modifier
-            .fillMaxWidth()
-            .height(4.dp)
-            .background(LightGray))
+        Spacer(modifier = Modifier.fillMaxWidth().height(4.dp).background(LightGray))
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
@@ -157,13 +159,11 @@ fun DetailContent(
                 orderCount,
                 onProductIncreased = { orderCount++ },
                 onProductDecreased = { if (orderCount > 0) orderCount-- },
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(bottom = 16.dp)
+                modifier = Modifier.align(Alignment.CenterHorizontally).padding(bottom = 16.dp)
             )
-            totalPoint = basePoint * orderCount
+            totalPrice = basePrice * orderCount
             OrderButton(
-                text = stringResource(R.string.add_to_cart, totalPoint),
+                text = stringResource(R.string.add_to_cart, totalPrice),
                 enabled = orderCount > 0,
                 onClick = {
                     onAddToCart(orderCount)
@@ -179,12 +179,12 @@ fun DetailContentPreview() {
     SriKayaTheme {
         DetailContent(
             R.drawable.ring4,
-            "Jaket Hoodie Dicoding",
+            stringResource(R.string.example_title),
             7500,
             1,
             onBackClick = {},
             onAddToCart = {},
-            productDesc = "Ini cincin bagus banget, belum lagi harganya sangat terjangkau. Ayo check out sekarang. (sample sentence)"
+            productDesc = stringResource(R.string.example_desc)
         )
     }
 }

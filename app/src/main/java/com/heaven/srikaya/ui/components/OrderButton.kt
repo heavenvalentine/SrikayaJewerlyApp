@@ -7,9 +7,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.heaven.srikaya.ui.theme.SriKayaTheme
 
 @Composable
 fun OrderButton(
@@ -24,6 +24,9 @@ fun OrderButton(
         modifier = modifier
             .fillMaxWidth()
             .height(52.dp)
+            .semantics(mergeDescendants = true) {
+                contentDescription = "Order Button"
+            }
     ) {
         Text(
             text = text,
@@ -32,13 +35,3 @@ fun OrderButton(
     }
 }
 
-@Composable
-@Preview(showBackground = true)
-fun OrderButtonPreview() {
-    SriKayaTheme {
-        OrderButton(
-            text = "Order",
-            onClick = {}
-        )
-    }
-}

@@ -22,60 +22,69 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.heaven.srikaya.R
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(
+    modifier: Modifier = Modifier
+) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Column(
-            modifier = Modifier.padding(8.dp),
+            modifier = modifier.padding(8.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
-                modifier = Modifier.padding(8.dp),
+                modifier = modifier.padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Box {
                     Image(
                         painter = painterResource(R.drawable.pp_heaven),
-                        contentDescription = "Avatar",
-                        modifier = Modifier.size(60.dp).clip(CircleShape)
+                        contentDescription = stringResource(R.string.avatar),
+                        modifier = modifier
+                            .size(60.dp)
+                            .clip(CircleShape)
                     )
                 }
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = modifier.width(8.dp))
                 Column {
                     Text(
-                        text = "Heaven Valentine",
+                        text = stringResource(R.string.myName),
                         fontWeight = FontWeight.Bold,
                     )
-                    Text("heavenvalentine49@gmail.com")
+                    Text(stringResource(R.string.heavenvalentine49_gmail_com))
                 }
             }
 
-            LinkButton(text = "LinkedIn", url = "https://id.linkedin.com/in/heaven-valentine-225ab0247")
-            LinkButton(text = "GitHub", url = "https://github.com/heavenvalentine2")
-            LinkButton(text = "WhatsApp", url = "https://wa.me/qr/FEJLBA7YFHYHK1")
+            LinkButton(text = stringResource(R.string.linkedin), url = stringResource(R.string.linkedin_link))
+            LinkButton(text = stringResource(R.string.github), url = stringResource(R.string.githubLink))
+            LinkButton(text = stringResource(R.string.whatsapp), url = stringResource(R.string.whatsappLink))
         }
     }
 }
 
 @Composable
-fun LinkButton(text: String, url: String) {
+fun LinkButton(
+    text: String,
+    url: String,
+    modifier: Modifier = Modifier
+) {
     val context = LocalContext.current
     Button(
         onClick = {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             context.startActivity(intent)
         },
-        modifier = Modifier
+        modifier = modifier
             .padding(vertical = 4.dp)
-            .widthIn(min = 200.dp) // Set a fixed width for all buttons
+            .widthIn(min = 200.dp)
     ) {
         Text(text = text)
     }

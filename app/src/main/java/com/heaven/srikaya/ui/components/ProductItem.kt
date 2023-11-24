@@ -21,7 +21,7 @@ import com.heaven.srikaya.ui.theme.Shapes
 fun ProductItem(
     image: Int,
     title: String,
-    requiredPoint: Int,
+    requiredPrice: Int,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -31,7 +31,7 @@ fun ProductItem(
             painter = painterResource(image),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier
+            modifier = modifier
                 .size(170.dp)
                 .clip(Shapes.medium)
         )
@@ -44,7 +44,7 @@ fun ProductItem(
             )
         )
         Text(
-            text = stringResource(R.string.required_point, requiredPoint),
+            text = stringResource(R.string.required_price, requiredPrice),
             style = MaterialTheme.typography.titleSmall,
             color = MaterialTheme.colorScheme.secondary
         )

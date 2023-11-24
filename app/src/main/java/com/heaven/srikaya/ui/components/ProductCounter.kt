@@ -80,7 +80,6 @@ fun ProductCounter(
         }
     }
 }
-
 @Preview
 @Composable
 fun ProductCounterPreview() {

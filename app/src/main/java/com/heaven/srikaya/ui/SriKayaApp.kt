@@ -7,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -37,7 +36,6 @@ import com.heaven.srikaya.ui.screen.profile.ProfileScreen
 import com.heaven.srikaya.ui.theme.SriKayaTheme
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SriKayaApp(
     modifier: Modifier = Modifier,
@@ -52,7 +50,7 @@ fun SriKayaApp(
         NavHost(
             navController = navController,
             startDestination = Screen.Home.route,
-            modifier = Modifier.padding(innerPadding)
+            modifier = modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
                 HomeScreen(
@@ -101,7 +99,7 @@ fun SriKayaApp(
 private fun shareOrder(context: Context, summary: String) {
     val intent = Intent(Intent.ACTION_SEND).apply {
         type = "text/plain"
-        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.dicoding_product))
+        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.srikaya_product))
         putExtra(Intent.EXTRA_TEXT, summary)
     }
 

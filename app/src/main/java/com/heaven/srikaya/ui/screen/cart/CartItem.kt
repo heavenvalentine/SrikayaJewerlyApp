@@ -26,7 +26,7 @@ fun CartItem(
     productsId: Long,
     image: Int,
     title: String,
-    totalPoint: Int,
+    totalPrice: Int,
     count: Int,
     onProductCountChanged: (id: Long, count: Int) -> Unit,
     modifier: Modifier = Modifier
@@ -38,12 +38,12 @@ fun CartItem(
             painter = painterResource(image),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier
+            modifier = modifier
                 .size(90.dp)
                 .clip(Shapes.small)
         )
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(8.dp)
                 .weight(1.0f)
@@ -58,8 +58,8 @@ fun CartItem(
             )
             Text(
                 text = stringResource(
-                    R.string.required_point,
-                    totalPoint
+                    R.string.required_price,
+                    totalPrice
                 ),
                 color = MaterialTheme.colorScheme.secondary,
                 style = MaterialTheme.typography.titleSmall,
@@ -70,7 +70,7 @@ fun CartItem(
             orderCount = count,
             onProductIncreased = { onProductCountChanged(productsId, count + 1) },
             onProductDecreased = { onProductCountChanged(productsId, count - 1) },
-            modifier = Modifier.padding(8.dp)
+            modifier = modifier.padding(8.dp)
         )
     }
 }
