@@ -29,3 +29,11 @@
 [x] Jika data kosong, menampilkan informasi bahwa data kosong.
 
 6. [x] Membuat end-to-end testing untuk memeriksa fungsional seluruh halaman, baik positif case maupun negative case.
+
+![Screenshot_20231128_165859_Srikaya](https://github.com/heavenvalentine/SrikayaJewerlyApp/assets/121389422/f84beccf-0317-40a9-b38e-7e38ca885ddf)
+![Screenshot_20231128_165849_Srikaya](https://github.com/heavenvalentine/SrikayaJewerlyApp/assets/121389422/ba92d478-f866-4859-abb6-b890b3d69566)
+![Screenshot_20231128_165541_Srikaya](https://github.com/heavenvalentine/SrikayaJewerlyApp/assets/121389422/f713a3ca-3868-42cd-b071-0620a046f62f)
+![Screenshot_20231128_165905_Srikaya](https://github.com/heavenvalentine/SrikayaJewerlyApp/assets/121389422/f6fad6f2-91e8-4d2b-a486-5c39cbb91dc1)
+![Screenshot_20231128_165902_Srikaya](https://github.com/heavenvalentine/SrikayaJewerlyApp/assets/121389422/e317f6f9-6734-481f-8bee-363e867ca72c)
+
+
